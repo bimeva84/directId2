@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-12">
+    <button class="btn btn-primary btn-md" (click)="open(newclient)">
+      <i class="fa fa-check-circle-o"></i> NEW</button>
+    <a class="btn btn-danger btn-md" style="color:white;" (click)="rechazarBoton(formAprobarSolicitud,formAprobarSolicitud.valid)">
+      <i class="fa fa-stop-circle-o"></i> Export</a>
+  </div>
+</div>
+
+<div class="row title-inner">
+  <div class="col-12">
+    <h3 style="color:white;">Clients</h3>
+  </div>
+</div>
+
+<form>
+  <div class="form-group">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-inverse">
+            <tr>
+              <th style="color:white;">Shared Key</th>
+              <th style="color:white;">Business ID</th>
+              <th style="color:white;">Email</th>
+              <th style="color:white;">Phone</th>
+              <th style="color:white;">Date Added</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of clientes; let i = index">
+              <td style="color:white;">{{c.sharedKey}}</td>
+              <td style="color:white;">{{c.businessId}}</td>
+              <td style="color:white;">{{c.email}}</td>
+              <td style="color:white;">{{c.phone}}</td>
+              <td style="color:white;">{{c.startDate | date:'dd/LLL/yyyy'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</form>
+<!--Modal para ingresar cliente nuevo-->
+<ng-template #newclient let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Create New Client</h4>
+  </div>
+  <div class="modal-body">
+    <form #formSolicitud="ngForm" (ngSubmit)="createClient(formSolicitud.valid)">
+      <div class="form-group">
+        <div class="col-8">
+          <label class="titulo-inputs">
+            Name
+          </label>
+          <input class="form-control" type="text" name="nombre_solicitante" #nombre_solicitante="ngModel" [(ngModel)]="filtro.name"
+            required>
+        </div>
+        <div class="col-8">
+          <label class="titulo-inputs">
+            Phone
+          </label>
+          <input class="form-control" type="text" name="nombre_solicitante" #nombre_solicitante="ngModel" [(ngModel)]="filtro.phone"
+            required>
+        </div>
+        <div class="col-8">
+          <label class="titulo-inputs">
+            Email
+          </label>
+          <input class="form-control" type="text" name="nombre_solicitante" #nombre_solicitante="ngModel" [(ngModel)]="filtro.email"
+            required>
+        </div>
+        <label for="dateOfBirth">Start Date</label>
+        <div class="input-group">
+          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+          </div>
+        </div>
+        <label for="dateOfBirth">End Date</label>
+        <div class="input-group">
+          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-outline-dark" type="submit">Ok</button>
+    </form>
+  </div>
+</ng-template>
